@@ -1,0 +1,23 @@
+
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 2012
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MicrosoftGraphAuthSample", "MicrosoftGraphAuthSample\MicrosoftGraphAuthSample.csproj", "{F3799E4D-0735-4B30-A5DE-E294E37F723A}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|iPhoneSimulator = Debug|iPhoneSimulator
+		Release|iPhone = Release|iPhone
+		Release|iPhoneSimulator = Release|iPhoneSimulator
+		Debug|iPhone = Debug|iPhone
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{F3799E4D-0735-4B30-A5DE-E294E37F723A}.Debug|iPhoneSimulator.ActiveCfg = Debug|iPhoneSimulator
+		{F3799E4D-0735-4B30-A5DE-E294E37F723A}.Debug|iPhoneSimulator.Build.0 = Debug|iPhoneSimulator
+		{F3799E4D-0735-4B30-A5DE-E294E37F723A}.Release|iPhone.ActiveCfg = Release|iPhone
+		{F3799E4D-0735-4B30-A5DE-E294E37F723A}.Release|iPhone.Build.0 = Release|iPhone
+		{F3799E4D-0735-4B30-A5DE-E294E37F723A}.Release|iPhoneSimulator.ActiveCfg = Release|iPhoneSimulator
+		{F3799E4D-0735-4B30-A5DE-E294E37F723A}.Release|iPhoneSimulator.Build.0 = Release|iPhoneSimulator
+		{F3799E4D-0735-4B30-A5DE-E294E37F723A}.Debug|iPhone.ActiveCfg = Debug|iPhone
+		{F3799E4D-0735-4B30-A5DE-E294E37F723A}.Debug|iPhone.Build.0 = Debug|iPhone
+	EndGlobalSection
+EndGlobal
