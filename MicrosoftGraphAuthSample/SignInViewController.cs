@@ -1,15 +1,18 @@
 using Foundation;
 using System;
 using UIKit;
-using Microsoft.IdentityModel.Clients.ActiveDirectory;
+//using Microsoft.IdentityModel.Clients.ActiveDirectory;
 using System.Threading.Tasks;
+using Microsoft.Experimental.IdentityModel.Clients.ActiveDirectory;
 
 namespace MicrosoftGraphAuthSample
 {
     public partial class SignInViewController : UIViewController
     {
 		static readonly string Authority = "https://login.microsoftonline.com/common";
-		static readonly string Scope = "https://outlook.office.com/api/v1.0/me"; //"https://outlook.office.com/"; //"https://graph.microsoft.com/";
+		// Currently there's no other scope available out of openid: http://stackoverflow.com/a/32614100
+		// Just authentication actually
+		static readonly string Scope = string.Empty;
 		static readonly string ClientId = "b440f986-4950-46b7-b69f-c1fb09da7ecc";
 		static readonly Uri RedirectUri = new Uri("urn:ietf:wg:oauth:2.0:oob");
 
@@ -79,11 +82,11 @@ namespace MicrosoftGraphAuthSample
 					throw new Exception ("There was previously a sign out. We need to sign in again");
 
 				result = await _authenticationContext.AcquireTokenSilentAsync (
-					resource: Scope,
+					new string [] { Scope },
 					clientId: ClientId);
 
-				if (result != null && !string.IsNullOrWhiteSpace (result.AccessToken))
-					_accessToken = result.AccessToken;
+				if (result != null && !string.IsNullOrWhiteSpace (result.Token))
+					_accessToken = result.Token;
 			} catch (Exception) {
 				errorAcquiringToken = true;
 			}
@@ -93,20 +96,18 @@ namespace MicrosoftGraphAuthSample
 					//var userCredential = new UserCredential (ClientId, ClientSecret);
 					var authenticationParentUiContext = new PlatformParameters (this);
 					result = await _authenticationContext.AcquireTokenAsync (
-						resource: Scope,
+						new string [] { Scope },
+						null,
 						clientId: ClientId,
 						redirectUri: RedirectUri,
 						parameters: authenticationParentUiContext);
 
-					if (result != null && !string.IsNullOrWhiteSpace (result.AccessToken))
-						_accessToken = result.AccessToken;
+					if (result != null && !string.IsNullOrWhiteSpace (result.Token))
+						_accessToken = result.Token;
 				} catch (Exception e) {
 					throw;
 				}
 			}
-
-			User.FullName = $"{result.UserInfo.GivenName} {result.UserInfo.FamilyName}";
-			//User.Avatar = result.UserInfo.
 		}
 
 		//async Task<byte []> GetUserPhotoAsync ()
