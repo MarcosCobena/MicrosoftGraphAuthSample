@@ -19,7 +19,7 @@
                         <subviews>
                             <button opaque="NO" contentMode="scaleAspectFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="3" translatesAutoresizingMaskIntoConstraints="NO">
                                 <rect key="frame" x="218" y="282.5" width="164" height="35"/>
-                                <state key="normal" backgroundImage="2000px-Microsoft_logo_(2012).png">
+                                <state key="normal" backgroundImage="MicrosoftLogo.png">
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                                 <constraints>
@@ -34,16 +34,22 @@
                                 <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <activityIndicatorView opaque="NO" contentMode="scaleToFill" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="89">
+                                <rect key="frame" x="190" y="290" width="20" height="20"/>
+                            </activityIndicatorView>
                         </subviews>
                         <constraints>
                             <constraint id="4" firstItem="3" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX"/>
                             <constraint id="5" firstItem="3" firstAttribute="centerY" secondItem="8bC-Xf-vdC" secondAttribute="centerY"/>
                             <constraint id="7" firstItem="6" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX"/>
                             <constraint id="8" firstItem="3" firstAttribute="top" secondItem="6" secondAttribute="bottom" constant="8"/>
+                            <constraint id="102" firstItem="89" firstAttribute="centerY" secondItem="3" secondAttribute="centerY"/>
+                            <constraint id="103" firstItem="3" firstAttribute="leading" secondItem="89" secondAttribute="trailing" constant="8"/>
                         </constraints>
                     </view>
                     <connections>
                         <outlet property="MicrosoftAccountButton" destination="3" id="name-outlet-3"/>
+                        <outlet property="SignInActivityIndicator" destination="89" id="name-outlet-89"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
@@ -62,18 +68,26 @@
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                         <subviews>
-                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="mcobena@plainconcepts.com" lineBreakMode="tailTruncation" minimumFontSize="10" id="16" translatesAutoresizingMaskIntoConstraints="NO">
-                                <rect key="frame" x="184.5" y="290" width="231" height="20.5"/>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" id="158" translatesAutoresizingMaskIntoConstraints="NO" image="ElisaAndMarcos.jpg" fixedFrame="YES">
+                                <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                                <variation key="heightClass=regular-widthClass=compact">
+                                    <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                                </variation>
+                            </imageView>
+                            <visualEffectView opaque="NO" contentMode="scaleToFill" id="152" translatesAutoresizingMaskIntoConstraints="NO">
+                                <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                                <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" id="153" fixedFrame="YES">
+                                    <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                                    <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                    <subviews/>
+                                </view>
+                                <blurEffect style="light"/>
+                            </visualEffectView>
+                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Welcome!" lineBreakMode="tailTruncation" minimumFontSize="10" id="19" translatesAutoresizingMaskIntoConstraints="NO">
+                                <rect key="frame" x="253.5" y="260.5" width="93.5" height="25.5"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Welcome back," lineBreakMode="tailTruncation" minimumFontSize="10" id="19" translatesAutoresizingMaskIntoConstraints="NO">
-                                <rect key="frame" x="241.5" y="261.5" width="117.5" height="20.5"/>
-                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="21"/>
+                                <color key="textColor" colorSpace="calibratedWhite" white="1" alpha="1"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="22" translatesAutoresizingMaskIntoConstraints="NO">
@@ -82,28 +96,39 @@
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                             </button>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" id="52" translatesAutoresizingMaskIntoConstraints="NO" image="Design/Avatar.png">
-                                <rect key="frame" x="250" y="154" width="100" height="100"/>
-                                <constraints>
-                                    <constraint id="56" firstItem="52" firstAttribute="height" constant="100"/>
-                                    <constraint id="57" firstAttribute="width" secondItem="52" secondAttribute="height" multiplier="1:1"/>
-                                </constraints>
-                            </imageView>
                         </subviews>
                         <constraints>
-                            <constraint id="17" firstItem="16" firstAttribute="centerX" secondItem="13" secondAttribute="centerX"/>
-                            <constraint id="18" firstItem="16" firstAttribute="centerY" secondItem="13" secondAttribute="centerY"/>
-                            <constraint id="20" firstItem="19" firstAttribute="centerX" secondItem="13" secondAttribute="centerX"/>
-                            <constraint id="21" firstItem="16" firstAttribute="top" secondItem="19" secondAttribute="bottom" constant="8"/>
                             <constraint id="23" firstItem="13" firstAttribute="trailing" secondItem="22" secondAttribute="trailing" constant="20"/>
                             <constraint id="24" firstItem="22" firstAttribute="top" secondItem="9" secondAttribute="bottom"/>
-                            <constraint id="55" firstItem="52" firstAttribute="centerX" secondItem="13" secondAttribute="centerX"/>
-                            <constraint id="59" firstItem="19" firstAttribute="top" secondItem="52" secondAttribute="bottom" constant="7"/>
+                            <constraint id="150" firstItem="19" firstAttribute="centerX" secondItem="13" secondAttribute="centerX"/>
+                            <constraint id="151" firstItem="13" firstAttribute="centerY" secondItem="19" secondAttribute="centerY" constant="27"/>
+                            <constraint id="154" firstItem="152" firstAttribute="top" secondItem="13" secondAttribute="top"/>
+                            <constraint id="155" firstItem="152" firstAttribute="bottom" secondItem="13" secondAttribute="bottom"/>
+                            <constraint id="156" firstItem="152" firstAttribute="leading" secondItem="13" secondAttribute="leading"/>
+                            <constraint id="157" firstItem="152" firstAttribute="trailing" secondItem="13" secondAttribute="trailing"/>
+                            <constraint id="173" firstItem="158" firstAttribute="top" secondItem="152" secondAttribute="top"/>
+                            <constraint id="174" firstItem="158" firstAttribute="leading" secondItem="152" secondAttribute="leading"/>
+                            <constraint id="175" firstItem="158" firstAttribute="trailing" secondItem="152" secondAttribute="trailing"/>
+                            <constraint id="176" firstItem="158" firstAttribute="bottom" secondItem="152" secondAttribute="bottom"/>
                         </constraints>
+                        <variation key="default">
+                            <mask key="constraints">
+                                <exclude reference="173"/>
+                                <exclude reference="174"/>
+                                <exclude reference="175"/>
+                                <exclude reference="176"/>
+                            </mask>
+                        </variation>
+                        <variation key="heightClass=regular-widthClass=compact">
+                            <mask key="constraints">
+                                <include reference="173"/>
+                                <include reference="174"/>
+                                <include reference="175"/>
+                                <include reference="176"/>
+                            </mask>
+                        </variation>
                     </view>
                     <connections>
-                        <outlet property="AvatarImageView" destination="52" id="name-outlet-52"/>
-                        <outlet property="UsernameLabel" destination="16" id="name-outlet-16"/>
                         <outlet property="SignOutButton" destination="22" id="name-outlet-22"/>
                     </connections>
                 </viewController>
@@ -113,7 +138,10 @@
         </scene>
     </scenes>
     <resources>
-        <image name="2000px-Microsoft_logo_(2012).png" width="2000" height="427"/>
-        <image name="Design/Avatar.png" width="450" height="450"/>
+        <image name="MicrosoftLogo.png" width="2000" height="427"/>
+        <image name="ElisaAndMarcos.jpg" width="960" height="724"/>
     </resources>
+    <simulatedMetricsContainer key="defaultSimulatedMetrics">
+        <simulatedScreenMetrics key="destination" type="retina47"/>
+    </simulatedMetricsContainer>
 </document>

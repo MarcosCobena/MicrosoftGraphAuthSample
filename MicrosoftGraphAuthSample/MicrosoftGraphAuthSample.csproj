@@ -98,7 +98,8 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Resources\" />
-    <Folder Include="Resources\Design\" />
+    <Folder Include="ViewControllers\" />
+    <Folder Include="Services\" />
   </ItemGroup>
   <ItemGroup>
     <InterfaceDefinition Include="LaunchScreen.storyboard" />
@@ -112,19 +113,19 @@
   <ItemGroup>
     <Compile Include="Main.cs" />
     <Compile Include="AppDelegate.cs" />
-    <Compile Include="HomeViewController.cs" />
-    <Compile Include="HomeViewController.designer.cs">
+    <Compile Include="ViewControllers\HomeViewController.cs" />
+    <Compile Include="ViewControllers\HomeViewController.designer.cs">
       <DependentUpon>HomeViewController.cs</DependentUpon>
     </Compile>
-    <Compile Include="SignInViewController.cs" />
-    <Compile Include="SignInViewController.designer.cs">
+    <Compile Include="ViewControllers\SignInViewController.cs" />
+    <Compile Include="ViewControllers\SignInViewController.designer.cs">
       <DependentUpon>SignInViewController.cs</DependentUpon>
     </Compile>
-    <Compile Include="User.cs" />
+    <Compile Include="Services\MicrosoftAuthenticationService.cs" />
   </ItemGroup>
   <ItemGroup>
-    <BundleResource Include="Resources\2000px-Microsoft_logo_%282012%29.png" />
-    <BundleResource Include="Resources\Design\Avatar.png" />
+    <BundleResource Include="Resources\MicrosoftLogo.png" />
+    <BundleResource Include="Resources\ElisaAndMarcos.jpg" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\iOS\Xamarin.iOS.CSharp.targets" />
 </Project>

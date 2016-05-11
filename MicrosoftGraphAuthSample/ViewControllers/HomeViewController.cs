@@ -14,9 +14,14 @@ namespace MicrosoftGraphAuthSample
 		{
 			base.ViewDidLoad ();
 
-			SignOutButton.TouchUpInside += (object sender, EventArgs e) => DismissModalViewController(true);
-
-			AvatarImageView.Layer.CornerRadius = AvatarImageView.Frame.Width / 2;
+			// TODO: Clear token
+			SignOutButton.TouchUpInside += SignOutAndNavigateBacktoSignIn;
 		}
-    }
+
+		void SignOutAndNavigateBacktoSignIn (object sender, EventArgs e)
+		{
+			MicrosoftAuthenticationService.SignOut ();
+			DismissModalViewController (true);
+		}
+	}
 }

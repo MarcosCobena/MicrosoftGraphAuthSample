@@ -11,18 +11,18 @@ using UIKit;
 
 namespace MicrosoftGraphAuthSample
 {
-    [Register ("SignInViewController")]
-    partial class SignInViewController
+    [Register ("HomeViewController")]
+    partial class HomeViewController
     {
         [Outlet]
         [GeneratedCode ("iOS Designer", "1.0")]
-        UIKit.UIButton MicrosoftAccountButton { get; set; }
+        UIKit.UIButton SignOutButton { get; set; }
 
         void ReleaseDesignerOutlets ()
         {
-            if (MicrosoftAccountButton != null) {
-                MicrosoftAccountButton.Dispose ();
-                MicrosoftAccountButton = null;
+            if (SignOutButton != null) {
+                SignOutButton.Dispose ();
+                SignOutButton = null;
             }
         }
     }
