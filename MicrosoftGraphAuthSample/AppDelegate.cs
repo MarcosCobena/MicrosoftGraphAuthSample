@@ -1,4 +1,5 @@
 ﻿using Foundation;
+using PerpetualEngine.Storage;
 using UIKit;
 
 namespace MicrosoftGraphAuthSample
@@ -8,7 +9,11 @@ namespace MicrosoftGraphAuthSample
 	[Register ("AppDelegate")]
 	public class AppDelegate : UIApplicationDelegate
 	{
-		// class-level declarations
+		static readonly string StorageKey = "SignIn";
+
+		internal static readonly SimpleStorage Storage = SimpleStorage.EditGroup (StorageKey);
+		internal static readonly string SuccessfulSignInKey = "SuccessfulSignIn";
+		internal static readonly string TokenCacheKey = "TokenCache";
 
 		public override UIWindow Window {
 			get;

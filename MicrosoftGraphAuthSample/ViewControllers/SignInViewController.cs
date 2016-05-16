@@ -1,4 +1,6 @@
 using System;
+using System.Threading.Tasks;
+using PerpetualEngine.Storage;
 using UIKit;
 
 namespace MicrosoftGraphAuthSample
@@ -21,6 +23,27 @@ namespace MicrosoftGraphAuthSample
 			base.ViewDidLoad ();
 
 			MicrosoftAccountButton.TouchUpInside += LaunchMicrosoftAuth;
+
+			TrySignInSilentlyIfThereWasAPreviousSignInAsync ().ConfigureAwait(false);
+		}
+
+		async Task TrySignInSilentlyIfThereWasAPreviousSignInAsync ()
+		{
+			var previousSuccessfulSignIn = AppDelegate.Storage.Get<bool> (AppDelegate.SuccessfulSignInKey);
+
+			if (!previousSuccessfulSignIn)
+				return;
+
+			SignInActivityIndicator.StartAnimating ();
+			MicrosoftAccountButton.Enabled = false;
+
+			var currentSuccessfulSignIn = await MicrosoftAuthenticationService.SignInSilentlyAsync ();
+
+			if (currentSuccessfulSignIn)
+				await NavigateToMainAsync ();
+
+			SignInActivityIndicator.StopAnimating ();
+			MicrosoftAccountButton.Enabled = true;
 		}
 
 		async void LaunchMicrosoftAuth (object sender, EventArgs e)
@@ -42,13 +65,19 @@ namespace MicrosoftGraphAuthSample
 			}
 
 			if (signInSuccessful) {
-				var storyboard = UIStoryboard.FromName ("Main", null);
-				var homeViewController = storyboard.InstantiateViewController ("Home");
-				await PresentViewControllerAsync (homeViewController, true);
+				AppDelegate.Storage.Put (AppDelegate.SuccessfulSignInKey, true);
+				await NavigateToMainAsync ();
 			}
 
 			SignInActivityIndicator.StopAnimating ();
 			MicrosoftAccountButton.Enabled = true;
 		}
-    }
+
+		async Task NavigateToMainAsync ()
+		{
+			var storyboard = UIStoryboard.FromName ("Main", null);
+			var homeViewController = storyboard.InstantiateViewController ("Home");
+			await PresentViewControllerAsync (homeViewController, true);
+		}
+	}
 }

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Diagnostics.Contracts;
+using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.Experimental.IdentityModel.Clients.ActiveDirectory;
 using UIKit;
@@ -15,7 +16,6 @@ namespace MicrosoftGraphAuthSample
 		static readonly string ClientId = "b440f986-4950-46b7-b69f-c1fb09da7ecc";
 		static readonly Uri RedirectUri = new Uri ("urn:ietf:wg:oauth:2.0:oob");
 
-		static string _accessToken;
 		static AuthenticationContext _authenticationContext;
 
 		internal static async Task<bool> SignInAsync (UIViewController callerController)
@@ -48,43 +48,72 @@ namespace MicrosoftGraphAuthSample
 		internal static void SignOut ()
 		{
 			_authenticationContext.TokenCache.Clear ();
-			_accessToken = null;
+			AppDelegate.Storage.Delete (AppDelegate.TokenCacheKey);
+		}
+
+		internal static async Task<bool> SignInSilentlyAsync ()
+		{
+			var successfulSignIn = false;
+
+			try {
+				var serializedTokenCache = AppDelegate.Storage.Get<byte[]> (AppDelegate.TokenCacheKey);
+
+				if (serializedTokenCache == null)
+					throw new Exception ("There was previously a sign out. We need to sign in again");
+
+				if (_authenticationContext == null) {
+					var tokenCache = new TokenCache (serializedTokenCache);
+					_authenticationContext = new AuthenticationContext (Authority, false, tokenCache);
+				}
+
+				var result = await _authenticationContext.AcquireTokenSilentAsync (
+					new string [] { Scope },
+					clientId: ClientId);
+
+				if (result != null) {
+					SaveTokenCache ();
+					successfulSignIn = true;
+				}
+			} catch {
+			}
+
+			return successfulSignIn;
+		}
+
+		static void SaveTokenCache ()
+		{
+			var previousTokenCache = AppDelegate.Storage.Get<byte[]> (AppDelegate.TokenCacheKey);
+			var serializedTokenCache = _authenticationContext.TokenCache.Serialize ();
+
+			if (previousTokenCache != null &&
+			    serializedTokenCache != null &&
+			    previousTokenCache.Length == serializedTokenCache.Length &&
+			    previousTokenCache.SequenceEqual (serializedTokenCache))
+				return;
+
+			AppDelegate.Storage.Put (AppDelegate.TokenCacheKey, serializedTokenCache);
 		}
 
 		static async Task RetrieveAccessTokenAndUserInfoAsync (UIViewController callerController)
 		{
-			var errorAcquiringToken = false;
-			AuthenticationResult result = null;
+			var successfulSignIn = await SignInSilentlyAsync ();
+
+			if (successfulSignIn)
+				return;
 
 			try {
-				if (_accessToken == null)
-					throw new Exception ("There was previously a sign out. We need to sign in again");
-
-				result = await _authenticationContext.AcquireTokenSilentAsync (
+				var authenticationParentUiContext = new PlatformParameters (callerController);
+				var result = await _authenticationContext.AcquireTokenAsync (
 					new string [] { Scope },
-					clientId: ClientId);
+					null,
+					clientId: ClientId,
+					redirectUri: RedirectUri,
+					parameters: authenticationParentUiContext);
 
-				if (result != null && !string.IsNullOrWhiteSpace (result.Token))
-					_accessToken = result.Token;
+				if (result != null)
+					SaveTokenCache ();
 			} catch {
-				errorAcquiringToken = true;
-			}
-
-			if (errorAcquiringToken) {
-				try {
-					var authenticationParentUiContext = new PlatformParameters (callerController);
-					result = await _authenticationContext.AcquireTokenAsync (
-						new string [] { Scope },
-						null,
-						clientId: ClientId,
-						redirectUri: RedirectUri,
-						parameters: authenticationParentUiContext);
-
-					if (result != null && !string.IsNullOrWhiteSpace (result.Token))
-						_accessToken = result.Token;
-				} catch {
-					throw;
-				}
+				throw;
 			}
 		}
 	}
